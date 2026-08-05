@@ -38,7 +38,8 @@ to generate Authentication Token use command:
 tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 24; echo
 ```
 
-<img width="1032" height="354" alt="image" src="https://github.com/user-attachments/assets/47b35bf9-37aa-4d18-8379-27992d18978b" />
+<img width="654" height="464" alt="image" src="https://github.com/user-attachments/assets/b76e189c-5440-4f46-bcea-f24cdee0fdb9" />
+
 
 
 ---
@@ -49,6 +50,7 @@ tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 24; echo
 3. Setup FRP Client (Kharej - Reverse Client)
 ```
 
+<img width="629" height="335" alt="image" src="https://github.com/user-attachments/assets/22ac86b6-63b1-480b-8e76-652fe11ff209" />
 
 
 
