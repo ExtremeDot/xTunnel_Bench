@@ -1,4 +1,58 @@
 # xTunnel_Bench
+----
+
+### Install Script
+
+```
+wget scrip
+```
+
+<img width="620" height="620" alt="image" src="https://github.com/user-attachments/assets/0917ab47-6e96-4ebe-8a5e-7a2096bfaa6c" />
+
+### Install Dependencies and FRP Binaries
+
+```
+1. Install Dependencies & FRP v0.70.1
+````
+
+
+Then Check Server Location to be Correct
+
+Server Location Status: [ KHAREJ ] or Server Location Status: [ IRAN ]
+if Wrong change it via Menu:
+
+```
+6. Change Location Mode Manually (Toggle Iran/Kharej)
+```
+
+---
+
+2- First Setup IRAN 
+
+```
+2. Setup FRP Server (Iran - Reverse Server)
+```
+to generate Authentication Token use command:
+
+```
+tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 24; echo
+```
+
+<img width="1032" height="354" alt="image" src="https://github.com/user-attachments/assets/47b35bf9-37aa-4d18-8379-27992d18978b" />
+
+
+---
+
+3-  Setup Kharej Server
+
+```
+3. Setup FRP Client (Kharej - Reverse Client)
+```
+
+
+
+
+-------
 
 ### Monitor Resources Ram and CPU usage while tunnel 
 
@@ -6,6 +60,9 @@
 chmod +x /usr/local/bin/tunnel_monitor.sh
 
 ```
+
+
+----
 ### مثال های اجرایی سرویس مانیتورینگ منابع سرور
 
 ### روی سرور ایران:
