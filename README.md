@@ -4,8 +4,22 @@
 ### Install Script
 
 ```
-wget scrip
+bash <(wget -qO- https://raw.githubusercontent.com/ExtremeDot/xTunnel_Bench/main/frp_manager.sh)
 ```
+
+یا بصورت نصب در لینوکس و استفاده آفلاین
+
+```
+curl -sSL -o /usr/local/bin/frp_manager.sh https://raw.githubusercontent.com/ExtremeDot/xTunnel_Bench/main/frp_manager.sh && chmod +x /usr/local/bin/frp_manager.sh && /usr/local/bin/frp_manager.sh
+```
+
+بعد با دستور زیر اجرا کنید
+
+```
+frp_manager.sh
+```
+
+------
 
 <img width="620" height="620" alt="image" src="https://github.com/user-attachments/assets/0917ab47-6e96-4ebe-8a5e-7a2096bfaa6c" />
 
