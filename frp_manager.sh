@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==========================================
-# Advanced FRP Tunnel Manager v1.3.1
+# Advanced FRP Tunnel Manager v1.3.2
 # Fixed iperf3 JSON Parsing Engine
 # ==========================================
 
@@ -451,6 +451,9 @@ run_speedtest() {
         iperf3 -s -p "$DEFAULT_PORT"
 
     elif [ "$TEST_OPT" == "2" ]; then
+        read -p "Enter target port [Default: $DEFAULT_PORT]: " TARGET_PORT
+        TARGET_PORT=${TARGET_PORT:-$DEFAULT_PORT}
+
         echo -e "\n${YELLOW}=== TRAFFIC USAGE ESTIMATION NOTICE ===${NC}"
         echo -e "Traffic usage depends on test duration and tunnel speed:"
         echo -e " - At 100 Mbps  : ~12.5 MB per second"
@@ -473,16 +476,15 @@ run_speedtest() {
         esac
 
         echo -e "\n${YELLOW}Testing through FRP Tunnel...${NC}"
-        echo -e "Target: 127.0.0.1:${DEFAULT_PORT}"
+        echo -e "Target: 127.0.0.1:${TARGET_PORT}"
         echo -e "Running ${DURATION}-second TCP multi-stream test...\n"
         
-        RAW_JSON=$(iperf3 -c 127.0.0.1 -p "$DEFAULT_PORT" -P 5 -t "$DURATION" --json 2>/dev/null)
+        RAW_JSON=$(iperf3 -c 127.0.0.1 -p "$TARGET_PORT" -P 5 -t "$DURATION" --json 2>/dev/null)
         
         if [ -z "$RAW_JSON" ]; then
-            echo -e "${RED}[ERROR] Speedtest failed! Could not connect to iperf3 server on port $DEFAULT_PORT.${NC}"
+            echo -e "${RED}[ERROR] Speedtest failed! Could not connect to iperf3 server on port $TARGET_PORT.${NC}"
             echo -e "${YELLOW}Make sure Option 1 (Server Mode) is currently RUNNING on Kharej server!${NC}"
         else
-            # Ultra-Reliable Python JSON Parsing
             MBPS=$(python3 -c '
 import sys, json
 try:
@@ -507,10 +509,10 @@ except Exception:
                 else RATING=3; fi
 
                 echo -e "\n${GREEN}================ SPEEDTEST RESULTS ================${NC}"
-                echo -e "Tunnel ID       : ${YELLOW}${ID}${NC}"
-                echo -e "Tunnel Port     : ${YELLOW}${DEFAULT_PORT}${NC}"
+                echo -e "Tunnel ID       : ${ORANGE}${ID}${NC}"
+                echo -e "Tunnel Port     : ${ORANGE}${TARGET_PORT}${NC}"
                 echo -e "Throughput      : ${CYAN}${MBPS} Mbps${NC}"
-                echo -e "Performance     : ${YELLOW}${RATING}/10${NC}"
+                echo -e "Performance     : ${ORANGE}${RATING}/10${NC}"
                 echo -e "${GREEN}===================================================${NC}\n"
             else
                 echo -e "${RED}[ERROR] Failed to parse iperf3 test results.${NC}"
