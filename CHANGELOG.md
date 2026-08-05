@@ -1,5 +1,13 @@
 # Changelog & Release Notes
 
+## [v1.3.2] - 2026-08-05
+
+### ⚡ Speedtest Enhancements
+* **Dynamic Client Port Prompt**: Added an interactive prompt in `iperf3` client mode allowing users to specify a custom target port (e.g., `55211`) or press Enter to keep the default tunnel port (`55209 + ID`).
+* **Flexible Diagnostic Routing**: Enabled cross-port bandwidth testing across non-standard FRP tunnel mappings.
+
+---
+
 ## [v1.3.1] - 2026-08-05
 
 ### ⚡ Fixed & Improved
