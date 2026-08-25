@@ -1,0 +1,154 @@
+# xTunnel_Bench
+
+Linux Benchmark
+```
+curl -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/ExtremeDot/Linux-Bench-/master/bench.sh?$RANDOM" -o bench.sh && chmod +x bench.sh
+sudo ./bench.sh
+```
+
+----
+
+----
+
+### Install Multi-Protocol Tunnel Manager
+
+```
+bash <(wget -qO- https://raw.githubusercontent.com/ExtremeDot/xTunnel_Bench/main/frp_manager.sh)
+```
+
+یا بصورت نصب در لینوکس و استفاده آفلاین
+
+```
+curl -sSL -o /usr/local/bin/frp_manager.sh https://raw.githubusercontent.com/ExtremeDot/xTunnel_Bench/main/frp_manager.sh && chmod +x /usr/local/bin/frp_manager.sh && /usr/local/bin/frp_manager.sh
+```
+بعد با دستور زیر اجرا کنید
+
+```
+frp_manager.sh
+```
+
+------
+
+<img width="678" height="515" alt="image" src="https://github.com/user-attachments/assets/e7e1626c-ab6b-47c9-a7a2-d2b973a16861" />
+
+
+---
+
+برای هر سرور و کلاینت ( ایران و خارج) اول از گزینه 1 ، فایل های مورد نیاز رو نصب کنید
+
+
+<img width="316" height="67" alt="image" src="https://github.com/user-attachments/assets/0a1817bd-58d1-4a28-9648-c4dc17e29c38" />
+
+
+اول اسکریپت نشون میده که سرور ایران هست یا خارج؟ اگر اشتباه نشون داده شده ، از طریق منوی 8 نوع سرور ایران یا خارج رو تغییر بدید.
+
+
+
+ابتدا سرور ایران رو راه اندازی کنید
+
+```
+2. Setup Server (Iran)
+```
+
+
+<img width="670" height="674" alt="image" src="https://github.com/user-attachments/assets/d017e6ec-8195-4934-aaf0-6913502f70f2" />
+
+
+
+نوع پروتوکل رو انتخاب میکنیم، من اینجا TCP رو انتخاب میکنم
+
+بعد میگه شماره تونل رو وارد کن، ترجیحا شماره تونل ایران و خارج یکی باشه تا اسکریپت به مشکل برنخوره
+
+هر عددی (بین 1 الی 10)  اینجا وارد میکنید برای سرور خارجتون هم همین باشه
+
+قسمت بعدی ازتون اسم سرور خارج رو میخواد، دلخواه وارد کنید و بدون فاصله، من ترکیه رو وارد کردم
+
+
+در قسمت بعدی نوع تنظیمات تونل رو میخواد ، حالت پیش فرض (شماره 1) رو انتخاب میکنم، میتونید دلخواه وارد کنید، پیش فرض 50 هست، اگه سرورتون پهنای باند و منابع خوبی داره میتونید افرایش بدید نهایتا تا 200 ( برای سرور خارج این مقدار رو نصف همین در نظر بگیرید).
+
+در پایان مشخصات و تنظیمات سرور رو برای راه اندازی روی سرور خارج نشون میده، هیج دکمه ای نزنید و سرور خارج رو اسکریپتش رو بیارید بالا
+
+
+----
+
+
+حالا میریم سراغ سرور خارج
+
+
+
+```
+3. Setup Client (Kharej)
+```
+
+همون دیتایی که توی سرور ایران در انتها برامون نشون داده رو کپی و وارد میکنیم و در انتها ازمون پورت های کانیفگ و فوروارد رو میخواد ، مثلا من اینجا پورت کانفیگم روی 49124 هست.
+
+
+---
+
+
+با گزینه 4 ، از وضعیت اتصال مطلع بشید
+
+---
+
+با گزینه 6 سرعت و کیفیت و پهنای باند اتصال را بررسی کنید.
+
+
+برای بررسی کردن سرعت تانل ، ابتدا سرور خارج رو ران کنید و سپس سرور ایران ازش تست بگیرید
+
+
+
+##### مثال گرفتن تست بین دو سرور 
+
+<img width="609" height="574" alt="image" src="https://github.com/user-attachments/assets/bf45b16e-06b3-458c-a5e8-4c4e6f50e4c8" />
+
+
+
+ابتدا از سرور خارج شروع میکنیم، گزینه
+
+```
+6. Run iperf3 Speedtest
+```
+
+رو انتخاب کنید
+
+بعدش 
+
+```
+1. Run iperf3 Server Mode (Run this first on Kharej)
+
+```
+
+<img width="708" height="726" alt="image" src="https://github.com/user-attachments/assets/b6562813-afee-46ac-aa65-81e079a9b0ee" />
+
+
+بعد از روی سرور ایران این گزینه رو انتخاب میکنیم
+```
+2. Run iperf3 Client Test (Run this later on Iran)
+```
+
+اگر شماره تانل های توی سرور ایران و خارج یکی نیست، برای تست سرعت وقتی سرور ایران رو انتخاب میکنید ، دقت کنید آیا پورت تست سرور خارج با پورتی که نشان داده یکی هست یا نه؟
+
+
+<img width="588" height="613" alt="image" src="https://github.com/user-attachments/assets/3e8c4a6e-f67e-412d-ab8c-c823f043cfec" />
+
+
+اگه نیست بصورت دستی تغییرش بدید، مثلا من اینجا براتون مثال میذارم پورت سرور خارج من 55111 انتخاب شده در صورتی که توی سرور ایران 55110 هست، 
+
+پس روی سرور ایران عدد پورت 55111 رو وارد میکنم و اینتر رو میزنم
+
+
+
+
+---
+
+پیشنهاد جهت بهبود سرعت تانل 
+
+حتما روی جفت سرورهاتون بهینه سازی سرعت های تانل رو انجام بدید
+.
+```
+9. Optimize System (TCP/BBR or UDP)
+```
+
+
+
+
