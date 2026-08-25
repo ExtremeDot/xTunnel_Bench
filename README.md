@@ -1,12 +1,30 @@
-####  xTunnel_Bench
+# FRP Multi-Protocol Tunnel Manager
 
-Linux Benchmark
-```
-curl -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/ExtremeDot/Linux-Bench-/master/bench.sh?$RANDOM" -o bench.sh && chmod +x bench.sh
-sudo ./bench.sh
-```
+## اسکریپت مدیریت تونل‌های FRP با پشتیبانی از چهار پروتکل:
 
-----
+TCP (بهترین پرفورمنس)
+KCP (مناسب شبکه‌های پرتلفات)
+QUIC
+WebSocket
+
+
+ویژگی‌ها:
+
+مدیریت همزمان چند تونل (تا ۱۰ تونل برای هر پروتکل)
+
+تشخیص خودکار لوکیشن سرور (ایران / خارج)
+
+نصب خودکار FRP نسخه ۰.۷۱.۰
+
+ساخت سرویس systemd با پیشوند جداگانه برای هر پروتکل (بدون تداخل)
+
+تست سلامت اتصال و تست سرعت با iperf3
+
+بهینه‌سازی سیستم (BBR + بافرهای TCP/UDP)
+
+مدیریت کامل (ریستارت، استاپ، لاگ، حذف، کرون‌جاب)
+
+تأییدیه قبل از انجام عملیات حساس
 
 ----
 
@@ -152,3 +170,14 @@ frp_manager.sh
 
 
 
+----
+####  xTunnel_Bench
+
+این اسکریپت برای قدرت سخت افزار و سرعت اینترنت سرور ایران نوشته شده 
+Linux Benchmark
+```
+curl -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/ExtremeDot/Linux-Bench-/master/bench.sh?$RANDOM" -o bench.sh && chmod +x bench.sh
+sudo ./bench.sh
+```
+
+----
