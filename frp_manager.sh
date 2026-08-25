@@ -537,7 +537,11 @@ check_tunnel_health() {
 # ========== Manage Tunnels ==========
 manage_tunnels() {
     show_logo
+    echo -e "${CYAN}--- Manage / Restart / Logs / Delete Tunnels ---${NC}\n"
+
+    # Always show the list first
     list_tunnels
+
     echo -e "${CYAN}1. Restart Tunnel${NC}"
     echo -e "${CYAN}2. Stop Tunnel${NC}"
     echo -e "${CYAN}3. View Logs${NC}"
@@ -552,50 +556,102 @@ manage_tunnels() {
     select_protocol
     read -p "Enter Tunnel Index (1-10): " ID
 
+    if ! [[ "$ID" =~ ^[1-9]$|^10$ ]]; then
+        echo -e "${RED}Invalid ID! Use 1 to 10.${NC}"
+        sleep 2
+        return
+    fi
+
     S_SVC="frps_${PROTOCOL}_tunnel${ID}.service"
     C_SVC="frpc_${PROTOCOL}_tunnel${ID}.service"
     SVC=""
-    [ -f "/etc/systemd/system/$S_SVC" ] && SVC="$S_SVC"
-    [ -f "/etc/systemd/system/$C_SVC" ] && SVC="$C_SVC"
+    ROLE=""
+    NAME=""
+    CONF=""
+
+    if [ -f "/etc/systemd/system/$S_SVC" ]; then
+        SVC="$S_SVC"
+        ROLE="Server (Iran)"
+        CONF="$CONFIG_DIR/frps_${PROTOCOL}_tunnel${ID}.toml"
+        NAME=$(grep "Tunnel_Name" "$CONF" 2>/dev/null | cut -d'"' -f2)
+    elif [ -f "/etc/systemd/system/$C_SVC" ]; then
+        SVC="$C_SVC"
+        ROLE="Client (Kharej)"
+        CONF="$CONFIG_DIR/frpc_${PROTOCOL}_tunnel${ID}.toml"
+        NAME=$(grep "Tunnel_Name" "$CONF" 2>/dev/null | cut -d'"' -f2)
+    fi
 
     if [ -z "$SVC" ]; then
         echo -e "${RED}Tunnel $ID (${PROTO_NAME}) not found!${NC}"
-        sleep 2; return
+        sleep 2
+        return
+    fi
+
+    # Confirmation step
+    echo -e "\n${YELLOW}You selected:${NC}"
+    echo -e "  Protocol   : ${PROTO_COLOR}${PROTO_NAME}${NC}"
+    echo -e "  Tunnel ID  : ${CYAN}${ID}${NC}"
+    echo -e "  Name       : ${CYAN}${NAME:-N/A}${NC}"
+    echo -e "  Role       : ${CYAN}${ROLE}${NC}"
+    echo -e "  Service    : ${CYAN}${SVC}${NC}"
+    echo ""
+    read -p "Is this the correct tunnel? Type 'yes' to continue: " CONFIRM
+
+    if [ "$CONFIRM" != "yes" ]; then
+        echo -e "${YELLOW}Cancelled.${NC}"
+        sleep 1
+        return
     fi
 
     case $ACT in
-        1) systemctl restart "$SVC"; echo -e "${GREEN}Tunnel restarted.${NC}" ;;
-        2) systemctl stop "$SVC"; echo -e "${YELLOW}Tunnel stopped.${NC}" ;;
-        3) journalctl -u "$SVC" -n 50 --no-pager ;;
+        1)
+            systemctl restart "$SVC"
+            echo -e "${GREEN}Tunnel ${ID} (${PROTO_NAME}) restarted.${NC}"
+            ;;
+        2)
+            systemctl stop "$SVC"
+            echo -e "${YELLOW}Tunnel ${ID} (${PROTO_NAME}) stopped.${NC}"
+            ;;
+        3)
+            journalctl -u "$SVC" -n 50 --no-pager
+            ;;
         4)
-            CONF=""
-            [ -f "$CONFIG_DIR/frps_${PROTOCOL}_tunnel${ID}.toml" ] && CONF="$CONFIG_DIR/frps_${PROTOCOL}_tunnel${ID}.toml"
-            [ -f "$CONFIG_DIR/frpc_${PROTOCOL}_tunnel${ID}.toml" ] && CONF="$CONFIG_DIR/frpc_${PROTOCOL}_tunnel${ID}.toml"
-            if [ -n "$CONF" ]; then
+            if [ -n "$CONF" ] && [ -f "$CONF" ]; then
                 $(get_editor) "$CONF"
                 systemctl restart "$SVC"
                 echo -e "${GREEN}Config updated and service restarted.${NC}"
+            else
+                echo -e "${RED}Config file not found.${NC}"
             fi
             ;;
         5)
             echo -e "${LIGHT_RED}WARNING: This will permanently delete the tunnel!${NC}"
-            read -p "Type 'yes' to confirm: " CONFIRM
-            if [ "$CONFIRM" == "yes" ]; then
-                systemctl disable --now "$SVC"
+            read -p "Type 'yes' again to confirm deletion: " CONFIRM2
+            if [ "$CONFIRM2" == "yes" ]; then
+                systemctl disable --now "$SVC" 2>/dev/null
                 rm -f "/etc/systemd/system/$SVC"
-                rm -f "$CONFIG_DIR/frps_${PROTOCOL}_tunnel${ID}.toml" "$CONFIG_DIR/frpc_${PROTOCOL}_tunnel${ID}.toml"
+                rm -f "$CONFIG_DIR/frps_${PROTOCOL}_tunnel${ID}.toml"
+                rm -f "$CONFIG_DIR/frpc_${PROTOCOL}_tunnel${ID}.toml"
                 systemctl daemon-reload
-                echo -e "${LIGHT_RED}Tunnel deleted.${NC}"
+                echo -e "${LIGHT_RED}Tunnel ${ID} (${PROTO_NAME}) deleted.${NC}"
             else
-                echo -e "${YELLOW}Cancelled.${NC}"
+                echo -e "${YELLOW}Deletion cancelled.${NC}"
             fi
             ;;
         6)
-            read -p "Enter restart interval in hours: " HRS
-            (crontab -l 2>/dev/null; echo "0 */$HRS * * * systemctl restart $SVC") | crontab -
-            echo -e "${GREEN}Auto-restart set every $HRS hours.${NC}"
+            read -p "Enter restart interval in hours (e.g. 6): " HRS
+            if [[ "$HRS" =~ ^[0-9]+$ ]]; then
+                (crontab -l 2>/dev/null; echo "0 */$HRS * * * systemctl restart $SVC") | crontab -
+                echo -e "${GREEN}Auto-restart set for every $HRS hours.${NC}"
+            else
+                echo -e "${RED}Invalid number.${NC}"
+            fi
+            ;;
+        *)
+            echo -e "${RED}Invalid choice.${NC}"
             ;;
     esac
+
     read -p "Press Enter to continue..."
 }
 
