@@ -1,4 +1,4 @@
-# xTunnel_Bench
+####  xTunnel_Bench
 
 Linux Benchmark
 ```
@@ -10,7 +10,7 @@ sudo ./bench.sh
 
 ----
 
-### Install Multi-Protocol Tunnel Manager
+# Install Multi-Protocol Tunnel Manager
 
 ```
 bash <(wget -qO- https://raw.githubusercontent.com/ExtremeDot/xTunnel_Bench/main/frp_manager.sh)
