@@ -6,8 +6,32 @@ curl -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/ExtremeDot/
 sudo ./bench.sh
 ```
 ----
+### New Seperated Protocol Scripts
 
-### Install Script
+#### TCP
+
+```
+bash <(wget -qO- https://raw.githubusercontent.com/ExtremeDot/xTunnel_Bench/main/frp_tcp_manager.sh)
+```
+
+- OLD TCP Script
+```
+bash <(wget -qO- https://raw.githubusercontent.com/ExtremeDot/xTunnel_Bench/main/frp_tcp_manager_v1.3.2.sh)
+```
+
+#### KCP
+```
+bash <(wget -qO- https://raw.githubusercontent.com/ExtremeDot/xTunnel_Bench/main/frp_kcp_manager.sh)
+```
+
+#### WebSocket
+```
+bash <(wget -qO- https://raw.githubusercontent.com/ExtremeDot/xTunnel_Bench/main/frp_ws_manager.sh)
+```
+
+----
+
+### Install Multi-Protocol Tunnel Manager
 
 ```
 bash <(wget -qO- https://raw.githubusercontent.com/ExtremeDot/xTunnel_Bench/main/frp_manager.sh)
