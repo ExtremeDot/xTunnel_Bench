@@ -1,8 +1,7 @@
 # FRP Multi-Protocol Tunnel Manager
 
-```
-bash <(wget -qO- https://raw.githubusercontent.com/ExtremeDot/xTunnel_Bench/main/frp_manager.sh)
-```
+<img width="678" height="515" alt="image" src="https://github.com/user-attachments/assets/e7e1626c-ab6b-47c9-a7a2-d2b973a16861" />
+
 
 ## اسکریپت مدیریت تونل‌های FRP با پشتیبانی از چهار پروتکل:
 
@@ -37,7 +36,9 @@ bash <(wget -qO- https://raw.githubusercontent.com/ExtremeDot/xTunnel_Bench/main
 
 # Install Multi-Protocol Tunnel Manager
 
-
+```
+bash <(wget -qO- https://raw.githubusercontent.com/ExtremeDot/xTunnel_Bench/main/frp_manager.sh)
+```
 
 یا بصورت نصب در لینوکس و استفاده آفلاین
 
@@ -49,10 +50,6 @@ curl -sSL -o /usr/local/bin/frp_manager.sh https://raw.githubusercontent.com/Ext
 ```
 frp_manager.sh
 ```
-
-------
-
-<img width="678" height="515" alt="image" src="https://github.com/user-attachments/assets/e7e1626c-ab6b-47c9-a7a2-d2b973a16861" />
 
 
 ---
