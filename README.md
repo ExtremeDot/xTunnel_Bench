@@ -52,6 +52,14 @@ frp_manager.sh
 ```
 
 
+----
+
+میتونید قبل از اجرای ابن اسکریپت از طریق پروژه زیر چک کنید کدوم پروتوکل ها براتون آزاد هست؟
+
+```
+https://github.com/ExtremeDot/Tunnel-Protocol-tester
+```
+
 ---
 
 
