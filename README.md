@@ -26,7 +26,17 @@
 
 ---
 
+
+می‌توانید قبل از اجرای این اسکریپت از طریق پروژه زیر چک کنید کدام پروتکل‌ها برای شما آزاد هستند:
+
+```
+https://github.com/ExtremeDot/Tunnel-Protocol-tester
+```
+
+-----
+
 ## نصب Multi-Protocol Tunnel Manager
+
 
 ```bash
 bash <(wget -qO- https://raw.githubusercontent.com/ExtremeDot/xTunnel_Bench/main/frp_manager.sh)
@@ -44,13 +54,7 @@ curl -sSL -o /usr/local/bin/frp_manager.sh https://raw.githubusercontent.com/Ext
 frp_manager.sh
 ```
 
----
 
-می‌توانید قبل از اجرای این اسکریپت از طریق پروژه زیر چک کنید کدام پروتکل‌ها برای شما آزاد هستند:
-
-```
-https://github.com/ExtremeDot/Tunnel-Protocol-tester
-```
 
 ---
 
